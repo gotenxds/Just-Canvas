@@ -1,9 +1,15 @@
+///<reference path="tools/Tool.ts"/>
+///<reference path="tools/drawingTool/Pencil.ts"/>
+
+import Pencil = Tools.Pencil;
+import Tool = Tools.Tool;
+
 module Main{
     export class JustCanvas{
         private canvas;
         private context;
-        private isPainting = false;
-        private isMouseDown = false;
+        private tool: Tool;
+        private currentToolEvents: {[type: string]: Function} = {};
 
         constructor(divId = 'just-canvas', canvasWidth = '500px', canvasHeight = '500px') {
             var canvasDiv = document.getElementById(divId);
@@ -14,51 +20,34 @@ module Main{
             canvasDiv.appendChild(this.canvas);
 
             this.context = this.canvas.getContext("2d");
-
-            this.initializeCanvasEvents();
         }
 
-        private initializeCanvasEvents() : void {
-            this.addCanvasEventListener('mousedown', (e) => {
-                this.isMouseDown = true;
-                var canvasOffset = this.getCanvasOffset();
-
-                this.drawOn(e.pageX - canvasOffset.left, e.pageY - canvasOffset.top);
-            });
-
-            this.addCanvasEventListener('mousemove', (e) => {
-                if(this.isPainting){
-                    var canvasOffset = this.getCanvasOffset();
-
-                    this.drawOn(e.pageX - canvasOffset.left, e.pageY - canvasOffset.top);
-                }
-            });
-
-            this.addCanvasEventListener('mouseup', () => {this.isPainting = this.isMouseDown = false;});
-            this.addCanvasEventListener('mouseleave', () => {this.isPainting = this.isMouseDown = false;});
+        get getContext(){
+            return this.context;
         }
 
-        private getCanvasOffset(){
+        public getCanvasOffset(){
             return {left: this.canvas.offsetLeft, top: this.canvas.offsetTop}
         }
 
-        private drawOn(x: number, y:number){
-            this.context.strokeStyle = "#df4b26";
-            this.context.lineJoin = "round";
-            this.context.lineWidth = 1;
+        public addCanvasEventListener(type: string, handler: Function){
+            this.currentToolEvents[type] = handler;
 
-            if(!this.isPainting){
-                this.context.beginPath();
-                this.context.moveTo(x, y);
-                this.isPainting = true;
-            }else{
-                this.context.lineTo(x, y);
-                this.context.stroke();
-            }
+            return this.canvas.addEventListener(type, handler);
         }
 
-        public addCanvasEventListener(type: string, handler: Function){
-            return this.canvas.addEventListener(type, handler);
+        public use(tool: Tool){
+            this.removeCurrentToolEvents(tool);
+
+            tool.registerEvents(this);
+        }
+
+        private removeCurrentToolEvents(tool) {
+            if (tool) {
+                for (var event in this.currentToolEvents) {
+                    this.canvas.removeEventListener(event, this.currentToolEvents[event]);
+                }
+            }
         }
     }
 }
