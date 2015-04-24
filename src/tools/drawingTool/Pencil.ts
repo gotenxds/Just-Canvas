@@ -41,6 +41,8 @@ module Tools{
                 context.lineTo(location.x, location.y);
                 context.stroke();
             }
+
+            this.fireOnRender({location: location, color: this.color, lineJoin: this.lineJoin, lineWidth : this.lineWidth})
         }
     }
 }

@@ -3,9 +3,9 @@
 import JustCanvas = Main.JustCanvas;
 
 module Tools{
-    export interface Tool{
+    export interface Tool extends ListenableTool{
 
-        render(context: CanvasRenderingContext2D, location)
-        registerEvents(canvas: JustCanvas)
+        render(context: CanvasRenderingContext2D, location);
+        registerEvents(canvas: JustCanvas);
     }
 }
