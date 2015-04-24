@@ -9,6 +9,7 @@ import Tool = Tools.Tool;
 module Main {
     export class JustCanvas {
         private mainLayer:Layer;
+        private backgroundLayer:Layer;
         private tool:Tool;
         private onChangeListeners = [];
         private currentToolEvents:{[type: string]: Function} = {};
@@ -16,7 +17,7 @@ module Main {
 
         constructor(divId = 'just-canvas', canvasWidth = '500px', canvasHeight = '500px') {
             this.mainLayer = new Layer(divId, 0, canvasWidth, canvasHeight, "main");
-            this.mainLayer = new Layer(divId, 99, canvasWidth, canvasHeight, "background");
+            this.backgroundLayer = new Layer(divId, -99, canvasWidth, canvasHeight, "background");
         }
 
         get getContext() {
