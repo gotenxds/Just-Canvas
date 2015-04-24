@@ -41,6 +41,14 @@ module Main {
             tool.addOnRenderListener(this.onToolRenderListener);
         }
 
+        public setBackgroundImage(src){
+            var imageObj = new Image();
+
+            imageObj.onload = () => this.backgroundLayer.context.drawImage(imageObj, 0, 0);
+
+            imageObj.src = src;
+        }
+
         public addOnChangeListener(listener:Function) {
             this.onChangeListeners.push(listener);
         }
