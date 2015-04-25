@@ -27,7 +27,7 @@ module Tools{
             canvas.addCanvasEventListener('mouseleave', () => {this.isDrawing = false;});
         }
 
-        public render(context: CanvasRenderingContext2D, location: {x:number; y:number}){
+        public render(context: CanvasRenderingContext2D|ChangeNotifyingContext, location: {x:number; y:number}){
 
             context.strokeStyle = this.color;
             context.lineJoin = LineJoin[this.lineJoin];

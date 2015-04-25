@@ -15,7 +15,7 @@ module Tools {
             this.lineWidth = lineWidth;
         }
 
-        render(context: CanvasRenderingContext2D, location){
+        render(context: CanvasRenderingContext2D|ChangeNotifyingContext, location){
             throw new Error('This method is abstract');
         }
         addOnRenderListener(listener: Function){

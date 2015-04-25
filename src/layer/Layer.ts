@@ -1,9 +1,11 @@
 ///<reference path="LayerIdSupplier.ts"/>
+///<reference path="context/ChangeNotifyingContext.ts"/>
 
 module Layers {
     export class Layer {
+        private _id:string;
         private _canvas;
-        private _context:CanvasRenderingContext2D;
+        private _context:ChangeNotifyingContext;
         private zIndex:number|string;
 
         constructor(divId:string, zIndex:number|string, canvasWidth:string, canvasHeight:string, canvasId:any = LayerIdSupplier.getNext()) {
@@ -17,15 +19,29 @@ module Layers {
 
             canvasDiv.appendChild(this._canvas);
 
-            this._context = this._canvas.getContext("2d");
+            this._id = canvasId;
+            this._context = new ChangeNotifyingContext(this, this._canvas.getContext("2d"));
             this.zIndex = zIndex;
+        }
+
+        get id(){
+            return this._id;
         }
 
         get canvas(){
             return this._canvas;
         }
+
         get context() {
             return this._context;
+        }
+
+        public addChangeListeners(listener:Function):void{
+            this._context.addChangeListener(listener);
+        }
+        
+        public removeChangeListeners(listener:Function):void{
+            this._context.removeChangeListener(listener);
         }
     }
 }
