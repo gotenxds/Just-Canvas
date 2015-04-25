@@ -1,9 +1,8 @@
-/// <reference path="../Tool.ts" />
 ///<reference path="../LineJoin.ts"/>
 ///<reference path="../ListenableTool.ts"/>
 
 module Tools {
-    export class DrawingTool implements Tool{
+    export class DrawingTool implements ListenableTool{
         protected color: string;
         protected lineJoin: LineJoin;
         protected lineWidth: number;

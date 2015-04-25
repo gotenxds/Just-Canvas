@@ -4,7 +4,7 @@ import ChangeNotifyingContext = Layers.ChangeNotifyingContext;
 import JustCanvas = Main.JustCanvas;
 
 module Tools{
-    export interface Tool extends ListenableTool{
+    export interface Tool{
         render(context: CanvasRenderingContext2D|ChangeNotifyingContext, location);
         registerEvents(canvas: JustCanvas);
     }
