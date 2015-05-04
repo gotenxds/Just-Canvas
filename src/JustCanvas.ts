@@ -2,22 +2,24 @@
 ///<reference path="layer/LayerCollection.ts"/>
 ///<reference path="tools/ListenableTool.ts"/>
 ///<reference path="tools/drawingTool/Pencil.ts"/>
+///<reference path="tools/viewTools/Zoom.ts"/>
 
 import Layer = Layers.Layer;
 import LayerCollection = Layers.LayerCollection;
 import Pencil = Tools.Pencil;
+import Zoom = Tools.Zoom;
 import Tool = Tools.Tool;
 
 module Main {
     export class JustCanvas {
-        private layers:LayerCollection;
+        private _layers:LayerCollection;
         private tool:Tool;
         private onChangeListeners = [];
         private currentToolEvents:{[type: string]: Function} = {};
         private onLayerChaneListener = (layer, args, method) => this.onChangeListeners.forEach(listener => listener(layer, args, method));
 
         constructor(divId = 'just-canvas', canvasWidth = '500px', canvasHeight = '500px') {
-            this.layers = new LayerCollection();
+            this._layers = new LayerCollection();
             
             this.addLayer("main", new Layer(divId, 0, canvasWidth, canvasHeight, "main"));
             this.addLayer("background", new Layer(divId, -99, canvasWidth, canvasHeight, "background"));
@@ -25,6 +27,10 @@ module Main {
 
         get getContext() {
             return this.layers.getById("main").context;
+        }
+
+        get layers() {
+            return this._layers;
         }
 
         public getCanvasOffset() {

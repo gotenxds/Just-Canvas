@@ -19,7 +19,7 @@ module Layers{
             var layers = [];
 
             for (var layer in this.layers){
-                layers.push(layer);
+                layers.push(this.layers[layer]);
             }
 
             return layers;
