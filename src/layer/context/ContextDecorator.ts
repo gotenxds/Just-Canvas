@@ -1,203 +1,208 @@
-///<reference path="../Layer.ts"/>
-module Layers{
-    export class ContextDecorator{
-        private _layer:Layer;
-        private context:CanvasRenderingContext2D;
+import {Layer} from "../layers";
 
-        constructor(layer:Layer, context:any){
-            this._layer = layer;
-            this.context = context;
-        }
+export default class ContextDecorator {
+    private _layer:Layer;
+    private context:CanvasRenderingContext2D;
 
-        get strokeStyle(){
-            return this.context.strokeStyle;
-        }
-        set strokeStyle(strokeStyle:string){
-            this.context.strokeStyle = strokeStyle;
-        }
-        get lineJoin(){
-            return this.context.lineJoin;
-        }
-        get canvas(){
-            return this.layer.canvas;
-        }
-        set lineJoin(lineJoin:string){
-            this.context.lineJoin = lineJoin;
-        }
-        public get lineWidth(){
-            return this.context.lineWidth;
-        }
-        public set lineWidth(lineWidth:number){
-            this.context.lineWidth = lineWidth;
-        }
+    constructor(layer:Layer, context:any) {
+        this._layer = layer;
+        this.context = context;
+    }
 
-        // Typescript yet supports super on accessors so I'm using this java style accessor (Sorry).
-        public setLineWidth(lineWidth:number){
-            this.lineWidth = lineWidth;
-        }
+    get strokeStyle() {
+        return this.context.strokeStyle;
+    }
 
-        get layer(){
-            return this._layer;
-        }
+    set strokeStyle(strokeStyle:string) {
+        this.context.strokeStyle = strokeStyle;
+    }
 
-        public arc(x:number, y:number, radius:number, startAngle:number, endAngle:number, anticlockwise?:boolean):void{
-            this.context.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-        }
+    get lineJoin() {
+        return this.context.lineJoin;
+    }
 
-        public arcTo(x1:number, y1:number, x2:number, y2:number, radius:number):void{
-            this.context.arcTo(x1, y1, x2, y2, radius);
-        }
+    get canvas() {
+        return this.layer.canvas;
+    }
 
-        public beginPath():void{
-            this.context.beginPath();
-        }
+    set lineJoin(lineJoin:string) {
+        this.context.lineJoin = lineJoin;
+    }
 
-        public bezierCurveTo(controlPoint1x:number, controlPoint1y:number, controlPoint2x:number, controlPoint2y:number, x:number, y:number):void{
-            this.context.bezierCurveTo(controlPoint1x, controlPoint1y, controlPoint2x, controlPoint2y, x, y);
-        }
+    public get lineWidth() {
+        return this.context.lineWidth;
+    }
 
-        public clearRect(x:number, y:number, width:number, height:number):void{
-            this.context.clearRect(x, y, width, height);
-        }
+    public set lineWidth(lineWidth:number) {
+        this.context.lineWidth = lineWidth;
+    }
 
-        public clip(path?, fillRule?:string):void{
-            this.context.clip(path, fillRule);
-        }
+    // Typescript yet supports super on accessors so I'm using this java style accessor (Sorry).
+    public setLineWidth(lineWidth:number) {
+        this.lineWidth = lineWidth;
+    }
 
-        public closePath():void{
-            this.context.closePath();
-        }
+    get layer() {
+        return this._layer;
+    }
 
-        public createImageData(imageData:any, width?:number, height?:number):ImageData{
-            return this.context.createImageData(imageData, width, height);
-        }
+    public arc(x:number, y:number, radius:number, startAngle:number, endAngle:number, anticlockwise?:boolean):void {
+        this.context.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+    }
 
-        public createLinearGradient(x0:number, y0:number, x1:number, y1:number):CanvasGradient{
-            return this.context.createLinearGradient(x0, y0, x1, y1);
-        }
+    public arcTo(x1:number, y1:number, x2:number, y2:number, radius:number):void {
+        this.context.arcTo(x1, y1, x2, y2, radius);
+    }
 
-        public createPattern(image, repetition:string):CanvasPattern{
-            return this.context.createPattern(image, repetition);
-        }
+    public beginPath():void {
+        this.context.beginPath();
+    }
 
-        public createRadialGradient(x0:number, y0:number, r0:number, x1:number, y1:number, r1:number):CanvasGradient{
-            return this.context.createRadialGradient(x0, y0, r0, x1, y1, r1);
-        }
+    public bezierCurveTo(controlPoint1x:number, controlPoint1y:number, controlPoint2x:number, controlPoint2y:number, x:number, y:number):void {
+        this.context.bezierCurveTo(controlPoint1x, controlPoint1y, controlPoint2x, controlPoint2y, x, y);
+    }
 
-        public drawFocusIfNeeded(path, element?):void{
-            return this.context.drawFocusIfNeeded(path, element);
-        }
+    public clearRect(x:number, y:number, width:number, height:number):void {
+        this.context.clearRect(x, y, width, height);
+    }
 
-        public drawImage(image, sx:number, sy:number, sWidth?:number, sHeight?:number, dx?:number, dy?:number, dWidth?:number, dHeight?:number):void{
-            if(dHeight !== undefined){
-                this.context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-            }else if (sHeight !== undefined){
-                this.context.drawImage(image, sx, sy, sWidth, sHeight);
-            }else{
-                this.context.drawImage(image, sx, sy);
-            }
-        }
+    public clip(path?, fillRule?:string):void {
+        this.context.clip(path, fillRule);
+    }
 
-        public fill(path?, fillRule?:string):void{
-            this.context.fill(path, fillRule);
-        }
+    public closePath():void {
+        this.context.closePath();
+    }
 
-        public fillRect(x:number, y:number, width:number, height:number):void{
-            this.context.fillRect(x, y, width, height);
-        }
+    public createImageData(imageData:any, width?:number, height?:number):ImageData {
+        return this.context.createImageData(imageData, width, height);
+    }
 
-        public fillText(text:string, x:number, y:number , maxWidth?:number):void{
-            this.context.fillText(text, x, y , maxWidth);
-        }
+    public createLinearGradient(x0:number, y0:number, x1:number, y1:number):CanvasGradient {
+        return this.context.createLinearGradient(x0, y0, x1, y1);
+    }
 
-        public getImageData(sx, sy, sw, sh):ImageData{
-            return this.context.getImageData(sx, sy, sw, sh);
-        }
+    public createPattern(image, repetition:string):CanvasPattern {
+        return this.context.createPattern(image, repetition);
+    }
 
-        public getLineDash():number[]{
-            return this.context.getLineDash();
-        }
+    public createRadialGradient(x0:number, y0:number, r0:number, x1:number, y1:number, r1:number):CanvasGradient {
+        return this.context.createRadialGradient(x0, y0, r0, x1, y1, r1);
+    }
 
-        public isPointInPath(x:number, y:number, fillRule?:string):boolean{
-            return this.context.isPointInPath(x, y, fillRule);
-        }
+    public drawFocusIfNeeded(path, element?):void {
+        return this.context.drawFocusIfNeeded(path, element);
+    }
 
-        public isPointInStroke(x:number, y:number):boolean{
-            return this.context.isPointInStroke(x, y);
+    public drawImage(image, sx:number, sy:number, sWidth?:number, sHeight?:number, dx?:number, dy?:number, dWidth?:number, dHeight?:number):void {
+        if (dHeight !== undefined) {
+            this.context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+        } else if (sHeight !== undefined) {
+            this.context.drawImage(image, sx, sy, sWidth, sHeight);
+        } else {
+            this.context.drawImage(image, sx, sy);
         }
+    }
 
-        public lineTo(x:number, y:number):void{
-            this.context.lineTo(x, y);
-        }
+    public fill(path?, fillRule?:string):void {
+        this.context.fill(path, fillRule);
+    }
 
-        public measureText(text:string):TextMetrics{
-            return this.context.measureText(text);
-        }
+    public fillRect(x:number, y:number, width:number, height:number):void {
+        this.context.fillRect(x, y, width, height);
+    }
 
-        public moveTo(x:number, y:number):void{
-            this.context.moveTo(x, y);
-        }
+    public fillText(text:string, x:number, y:number, maxWidth?:number):void {
+        this.context.fillText(text, x, y, maxWidth);
+    }
 
-        public putImageData(imagedata:ImageData, dx:number, dy:number, dirtyX?:number, dirtyY?:number, dirtyWidth?:number, dirtyHeight?:number):void{
-            if(dirtyHeight !== undefined){
-                this.context.putImageData(imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
-            }else if(dirtyY !== undefined){
-                this.context.putImageData(imagedata, dx, dy, dirtyX, dirtyY);
-            }else{
-                this.context.putImageData(imagedata, dx, dy);
-            }
-        }
+    public getImageData(sx, sy, sw, sh):ImageData {
+        return this.context.getImageData(sx, sy, sw, sh);
+    }
 
-        public quadraticCurveTo(cpx:number, cpy:number, x:number, y:number):void{
-            this.context.quadraticCurveTo(cpx, cpy, x, y);
-        }
+    public getLineDash():number[] {
+        return this.context.getLineDash();
+    }
 
-        public rect(x:number, y:number, width:number, height:number):void{
-            this.context.rect(x, y , width, height);
-        }
+    public isPointInPath(x:number, y:number, fillRule?:string):boolean {
+        return this.context.isPointInPath(x, y, fillRule);
+    }
 
-        public restore():void{
-            this.context.restore();
-        }
+    public isPointInStroke(x:number, y:number):boolean {
+        return this.context.isPointInStroke(x, y);
+    }
 
-        public rotate(angle:number):void{
-            this.context.rotate(angle);
-        }
+    public lineTo(x:number, y:number):void {
+        this.context.lineTo(x, y);
+    }
 
-        public save():void{
-            this.context.save();
-        }
+    public measureText(text:string):TextMetrics {
+        return this.context.measureText(text);
+    }
 
-        public scale(x:number, y:number):void{
-            this.context.scale(x, y)
-        }
+    public moveTo(x:number, y:number):void {
+        this.context.moveTo(x, y);
+    }
 
-        public setLineDash(segments:number[]):void{
-            this.context.setLineDash(segments);
+    public putImageData(imagedata:ImageData, dx:number, dy:number, dirtyX?:number, dirtyY?:number, dirtyWidth?:number, dirtyHeight?:number):void {
+        if (dirtyHeight !== undefined) {
+            this.context.putImageData(imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+        } else if (dirtyY !== undefined) {
+            this.context.putImageData(imagedata, dx, dy, dirtyX, dirtyY);
+        } else {
+            this.context.putImageData(imagedata, dx, dy);
         }
+    }
 
-        public setTransform(a:number, b:number, c:number, d:number, e:number, f:number):void{
-            this.context.setTransform(a, b, c, d, e, f);
-        }
+    public quadraticCurveTo(cpx:number, cpy:number, x:number, y:number):void {
+        this.context.quadraticCurveTo(cpx, cpy, x, y);
+    }
 
-        public stroke():void{
-            this.context.stroke();
-        }
+    public rect(x:number, y:number, width:number, height:number):void {
+        this.context.rect(x, y, width, height);
+    }
 
-        public strokeRect(x:number, y:number, width:number, height:number):void{
-            this.context.strokeRect(x, y, width, height);
-        }
+    public restore():void {
+        this.context.restore();
+    }
 
-        public strokeText(text:string, x:number, y:number , maxWidth?:number):void{
-            this.context.strokeText(text, x, y, maxWidth);
-        }
+    public rotate(angle:number):void {
+        this.context.rotate(angle);
+    }
 
-        public transform(a:number, b:number, c:number, d:number, e:number, f:number):void{
-            this.context.transform(a, b, c, d, e, f);
-        }
+    public save():void {
+        this.context.save();
+    }
 
-        public translate(x:number, y:number):void{
-            this.context.translate(x, y);
-        }
+    public scale(x:number, y:number):void {
+        this.context.scale(x, y)
+    }
+
+    public setLineDash(segments:number[]):void {
+        this.context.setLineDash(segments);
+    }
+
+    public setTransform(a:number, b:number, c:number, d:number, e:number, f:number):void {
+        this.context.setTransform(a, b, c, d, e, f);
+    }
+
+    public stroke():void {
+        this.context.stroke();
+    }
+
+    public strokeRect(x:number, y:number, width:number, height:number):void {
+        this.context.strokeRect(x, y, width, height);
+    }
+
+    public strokeText(text:string, x:number, y:number, maxWidth?:number):void {
+        this.context.strokeText(text, x, y, maxWidth);
+    }
+
+    public transform(a:number, b:number, c:number, d:number, e:number, f:number):void {
+        this.context.transform(a, b, c, d, e, f);
+    }
+
+    public translate(x:number, y:number):void {
+        this.context.translate(x, y);
     }
 }

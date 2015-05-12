@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="./build/sample.js"></script>
+</head>
+<body>
+    <div id="just-canvas"></div>
+
+    <script>
+        var jc = new JustCanvas();
+        jc.use(new Pencil('#ff0000'));
+        //jc.setBackgroundImage('darth-vader.jpg');
+        jc.addOnChangeListener(function(eventArgs){
+            console.log(eventArgs.layer.id);
+        })
+    </script>
+</body>
+</html>

@@ -1,5 +1,3 @@
-module Utils{
-    export interface Supplier<V>{
-        get():V;
-    }
+export interface Supplier<V> {
+    get():V;
 }

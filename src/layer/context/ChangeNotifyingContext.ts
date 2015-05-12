@@ -1,97 +1,95 @@
-///<reference path="../Layer.ts"/>
-///<reference path="ContextDecorator.ts"/>
-module Layers{
-    export class ChangeNotifyingContext extends ContextDecorator{
-        listeners: Function[] = [];
+import ContextDecorator from "./ContextDecorator";
 
-        public addChangeListener(listener: Function){
-            this.listeners.push(listener);
-        }
+export default class ChangeNotifyingContext extends ContextDecorator {
+    listeners:Function[] = [];
 
-        public removeChangeListener(listener: Function){
-            this.listeners.push(this.listeners[this.listeners.indexOf(listener)]);
-        }
+    public addChangeListener(listener:Function) {
+        this.listeners.push(listener);
+    }
 
-        private fireChange(args){
-            this.listeners.forEach(listener => listener(args));
-        }
+    public removeChangeListener(listener:Function) {
+        this.listeners.push(this.listeners[this.listeners.indexOf(listener)]);
+    }
 
-        public drawImage(image, sx:number, sy:number, sWidth?:number, sHeight?:number, dx?:number, dy?:number, dWidth?:number, dHeight?:number):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+    fireChange(args) {
+        this.listeners.forEach(listener => listener(args));
+    }
 
-            super.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-        }
+    public drawImage(image, sx:number, sy:number, sWidth?:number, sHeight?:number, dx?:number, dy?:number, dWidth?:number, dHeight?:number):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public fill(path?, fillRule?:string):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    }
 
-            super.fill(path, fillRule);
-        }
+    public fill(path?, fillRule?:string):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public fillRect(x:number, y:number, width:number, height:number):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.fill(path, fillRule);
+    }
 
-            super.fillRect(x, y, width, height);
-        }
+    public fillRect(x:number, y:number, width:number, height:number):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public fillText(text:string, x:number, y:number , maxWidth?:number):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.fillRect(x, y, width, height);
+    }
 
-            super.fillText(text, x, y , maxWidth);
-        }
+    public fillText(text:string, x:number, y:number, maxWidth?:number):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public restore():void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.fillText(text, x, y, maxWidth);
+    }
 
-            super.restore();
-        }
+    public restore():void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public rotate(angle:number):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.restore();
+    }
 
-            super.rotate(angle);
-        }
+    public rotate(angle:number):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public scale(x:number, y:number):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.rotate(angle);
+    }
 
-            super.scale(x, y)
-        }
+    public scale(x:number, y:number):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public setTransform(a:number, b:number, c:number, d:number, e:number, f:number):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.scale(x, y)
+    }
 
-            super.setTransform(a, b, c, d, e, f);
-        }
+    public setTransform(a:number, b:number, c:number, d:number, e:number, f:number):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public stroke():void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'stroke'});
+        super.setTransform(a, b, c, d, e, f);
+    }
 
-            super.stroke();
-        }
+    public stroke():void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'stroke'});
 
-        public strokeRect(x:number, y:number, width:number, height:number):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.stroke();
+    }
 
-            super.strokeRect(x, y, width, height);
-        }
+    public strokeRect(x:number, y:number, width:number, height:number):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public strokeText(text:string, x:number, y:number , maxWidth?:number):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.strokeRect(x, y, width, height);
+    }
 
-            super.strokeText(text, x, y, maxWidth);
-        }
+    public strokeText(text:string, x:number, y:number, maxWidth?:number):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public transform(a:number, b:number, c:number, d:number, e:number, f:number):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.strokeText(text, x, y, maxWidth);
+    }
 
-            super.transform(a, b, c, d, e, f);
-        }
+    public transform(a:number, b:number, c:number, d:number, e:number, f:number):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
 
-        public translate(x:number, y:number):void{
-            this.fireChange({layer:this.layer, arguments: arguments, methodName: 'drawImage'});
+        super.transform(a, b, c, d, e, f);
+    }
 
-            super.translate(x, y);
-        }
+    public translate(x:number, y:number):void {
+        this.fireChange({layer: this.layer, arguments: arguments, methodName: 'drawImage'});
+
+        super.translate(x, y);
     }
 }

@@ -1,5 +1,3 @@
-module Utils {
-    export interface Redrawable {
-        redraw: () => void;
-    }
+export interface Redrawable {
+    redraw: () => void;
 }

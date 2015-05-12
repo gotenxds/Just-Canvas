@@ -1,8 +1,6 @@
-///<reference path="Tool.ts"/>
+import {Tool} from "./tools";
 
-module Tools{
-    export interface ListenableTool extends Tool{
-        addOnRenderListener(listener: Function);
-        removeOnRenderListener(listener: Function);
-    }
+export interface ListenableTool extends Tool {
+    addOnRenderListener(listener:Function);
+    removeOnRenderListener(listener:Function);
 }

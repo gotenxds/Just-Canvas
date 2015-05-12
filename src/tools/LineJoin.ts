@@ -1,3 +1,1 @@
-module Tools{
-    export enum LineJoin {bevel, round, miter}
-}
+export enum LineJoin {bevel, round, miter}

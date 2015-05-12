@@ -1,11 +1,7 @@
-///<reference path="../JustCanvas.ts"/>
-///<reference path="../layer/context/ChangeNotifyingContext.ts"/>
-import ChangeNotifyingContext = Layers.ChangeNotifyingContext;
-import JustCanvas = Main.JustCanvas;
+import ChangeNotifyingContext from "../layer/context/ChangeNotifyingContext";
+import JustCanvas from "../JustCanvas";
 
-module Tools{
-    export interface Tool{
-        render(context: CanvasRenderingContext2D|ChangeNotifyingContext, location);
-        registerEvents(canvas: JustCanvas);
-    }
+export interface Tool {
+    render(context:CanvasRenderingContext2D|ChangeNotifyingContext, location);
+    registerEvents(canvas:JustCanvas);
 }
